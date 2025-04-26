@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Invitation Templates | Neon Collection</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --gold-color: #ffd700;
+            --gold-dark: #d4af37;
+            --text-light: #f0f0f0;
+            --text-medium: #aaa;
+            --text-dark: #1a1a1a;
+            --bg-dark: #121212;
+            --bg-card-front: #1f1f1f;
+            --border-dark: #333;
+
+            /* Neon Glow Colors */
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #00ff00;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff8c00;
+            --neon-purple: #cc00ff;
+            --neon-red: #ff0000;
+            --neon-lime: #ccff00;
+            --neon-teal: #00ffcc;
+            --neon-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            position: relative;
+        }
+        #particles-js {
+            position: fixed; width: 100%; height: 100%;
+            top: 0; left: 0; z-index: -1; background-color: var(--bg-dark);
+        }
+        .container {
+            max-width: 1200px; margin: 0 auto;
+            padding: 40px 20px; position: relative; z-index: 1;
+        }
+        .page-header {
+            text-align: center; margin-bottom: 50px;
+            position: relative; padding-bottom: 30px;
+        }
+        .page-header::after {
+            content: ''; position: absolute; width: 150px; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
+            bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0.7;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInRight {
+             from { transform: translateX(100%); opacity: 0; }
+             to { transform: translateX(0); opacity: 1; }
+         }
+
+        h1 {
+            font-family: 'Cinzel', serif; font-size: 3rem; color: var(--text-light);
+            margin-bottom: 15px; font-weight: 700; letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.2);
+            opacity: 0;
+            animation: fadeInSlideUp 1s ease-out 0.5s forwards;
+        }
+        .subtitle {
+            font-family: 'Playfair Display', serif; font-size: 1.2rem;
+            color: var(--text-medium); font-style: italic; margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+        .template-section { margin-bottom: 60px; }
+        .section-header {
+            display: flex; align-items: center; margin-bottom: 30px;
+            padding-bottom: 15px; border-bottom: 1px solid var(--border-dark);
+        }
+        .section-title {
+            font-family: 'Merriweather', serif; font-size: 2rem;
+            color: var(--text-light); margin: 0;
+        }
+        .section-icon {
+            width: 35px; height: 35px; margin-right: 15px;
+            flex-shrink: 0; fill: var(--gold-dark);
+        }
+        .section-icon path { fill: var(--gold-dark); }
+
+        /* Card Grid */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        /* Card Styles - Neon Hover */
+        .flip-card-container {
+            perspective: 1200px;
+            height: 420px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: box-shadow 0.4s ease, transform 0.3s ease;
+        }
+
+        .flip-card-container:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 0 12px var(--neon-color, #fff),
+                        0 0 24px var(--neon-color, #fff),
+                        0 0 40px var(--neon-color, #fff);
+        }
+
+        .flip-card {
+            width: 100%; height: 100%; position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #2a2a2a;
+        }
+
+        /* --- Trigger flip ON HOVER --- */
+        .flip-card-container:hover .flip-card {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px; display: flex;
+            justify-content: center; align-items: center;
+            flex-direction: column; overflow: hidden;
+        }
+
+        .flip-card-front {
+            background: var(--bg-card-front); transform: rotateY(0deg);
+            z-index: 2; padding: 10px;
+        }
+
+        .flip-card-front img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.9s ease, filter 0.5s ease;
+            border-radius: 6px; filter: brightness(0.9);
+        }
+        .flip-card-container:hover .flip-card-front img {
+            transform: scale(1.05); filter: brightness(1.05);
+        }
+
+        /* Card Back - Setup for Fill Effect */
+        .flip-card-back {
+            transform: rotateY(180deg); padding: 25px; box-sizing: border-box;
+            color: var(--text-light); text-align: center;
+            justify-content: space-around;
+            position: relative; overflow: hidden;
+        }
+
+        /* Filling Effect Overlay */
+        .flip-card-back::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: #000000;
+            z-index: 1; transform-origin: bottom; transform: scaleY(0);
+            transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1) 0.3s;
+        }
+        .flip-card-container:hover .flip-card-back::before {
+            transform: scaleY(1);
+        }
+
+        /* Template Info on Back */
+        .template-info {
+            text-align: center; width: 100%; display: flex;
+            flex-direction: column; justify-content: center;
+            position: relative; z-index: 2; opacity: 0;
+            transition: opacity 0.4s ease-out 0.7s;
+        }
+        .flip-card-container:hover .template-info {
+             opacity: 1;
+        }
+
+        .template-title {
+            font-family: 'Great Vibes', cursive; font-size: 2.6rem;
+            color: #ffffff; margin-bottom: 15px; position: relative;
+            padding-bottom: 0; font-weight: normal; line-height: 1.2;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+        .template-title::after { display: none; }
+        .template-description {
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* Edit Button Styles */
+        .edit-button {
+            display: inline-block; padding: 10px 25px; margin-top: 10px;
+            background-color: var(--gold-color); color: var(--text-dark);
+            border: none; border-radius: 25px; font-family: 'Poppins', sans-serif;
+            font-weight: 600; font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 0.5px; cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 5; position: relative;
+        }
+        .edit-button:hover {
+            background-color: var(--gold-dark); transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        .edit-button:active {
+             transform: translateY(0px); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Official Badge */
+        .official-badge {
+            position: fixed; top: 20px; right: 20px; background: var(--gold-color);
+            color: var(--text-dark); padding: 8px 15px; border-radius: 20px;
+            font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); z-index: 100;
+            display: flex; align-items: center;
+             opacity: 0;
+             animation: slideInRight 0.8s ease-out 1.5s forwards;
+        }
+        .official-badge::before { content: '✓'; margin-right: 5px; font-weight: bold; }
+
+        /* Footer */
+        .page-footer {
+            text-align: center; padding: 30px 0; margin-top: 50px;
+            border-top: 1px solid var(--border-dark); color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+        .footer-logo {
+            font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--text-light);
+            margin-bottom: 10px; display: block; font-weight: 700;
+        }
+        .footer-logo span { color: var(--gold-color); }
+
+        /* QR Code Modal Styles */
+         .qr-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center;
+            align-items: center; z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+        }
+        .qr-modal-overlay.active { opacity: 1; visibility: visible; transition: opacity 0.4s ease; }
+        .qr-modal {
+            background: #fff; padding: 30px 40px; border-radius: 10px;
+            text-align: center; position: relative; transform: scale(0.9);
+            transition: transform 0.4s ease; max-width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .qr-modal-overlay.active .qr-modal { transform: scale(1); }
+        #qr-code-container { margin: 15px auto 20px; display: inline-block; } /* Adjusted margin */
+        #qr-code-container img { border: 5px solid #eee; border-radius: 5px; display: block; }
+        .qr-modal h3 { color: #333; font-family: 'Merriweather', serif; margin-bottom: 10px; }
+        .qr-modal p { color: #666; font-size: 0.9em; margin-bottom: 20px; } /* Reduced margin */
+        .close-modal-button {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            font-size: 2rem; color: #999; cursor: pointer; transition: color 0.3s ease;
+        }
+        .close-modal-button:hover { color: #333; }
+
+        /* Scroll Animation Setup */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .template-grid .flip-card-container.animate-on-scroll.is-visible {
+            transition-delay: calc(var(--card-index) * 0.08s);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .template-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; } .section-title { font-size: 1.6rem; }
+            .template-title { font-size: 2rem; } .template-description { font-size: 1.2rem; }
+            .flip-card-container { height: 400px; }
+            .edit-button { padding: 8px 20px; font-size: 0.8rem; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 20px 15px; } h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 1rem; } .template-grid { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: center; text-align: center; }
+            .section-icon { margin-right: 0; margin-bottom: 10px; }
+            .section-title { font-size: 1.4rem; } .flip-card-container { height: 420px; }
+            .official-badge { top: 10px; right: 10px; font-size: 0.8rem; padding: 5px 10px; }
+            .page-header::after { width: 100px; } .template-title { font-size: 2.2rem; }
+            .template-description { font-size: 1.3rem; margin-bottom: 15px; }
+            #qr-code-container img { width: 120px !important; height: 120px !important; }
+            .edit-button { padding: 10px 22px; font-size: 0.85rem; }
+            .flip-card-back { padding: 20px; }
+            .animate-on-scroll { transform: translateY(20px); }
+            .qr-modal p { margin-bottom: 15px; } /* Adjust spacing in modal for mobile */
+            #qr-code-container { margin: 10px auto 15px; }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Particles.js container -->
+    <div id="particles-js"></div>
+
+    <!-- Official Badge -->
+    <div class="official-badge">Official Collection</div>
+
+    <div class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1>Luxury Invitation Templates</h1>
+            <p class="subtitle">Elegant designs for life's most special occasions</p>
+        </header>
+
+        <!-- Sections (Wedding, Birthday, Engagement) -->
+        <!-- Wedding Section -->
+        <section class="template-section wedding-section">
+             <div class="section-header animate-on-scroll">
+                 <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21a9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9 9 9 0 01-9 9zm0-16a7 7 0 00-7 7 7 7 0 007 7 7 7 0 007-7 7 7 0 00-7-7zm5 10a4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4 4 4 0 014 4z"/></svg>
+                <h2 class="section-title">Wedding Invitations</h2>
+            </div>
+            <div class="template-grid">
+                <!-- Card 1 -->
+                <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGdx6zRG5I/ClkNhLk3RU5-my-BCXOqBA/edit">
+                    <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Cream%20and%20Pink%20Floral%20Border%20Rustic%20Indian%20Wedding%20Invitation.png" alt="Rustic Floral Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Rustic Floral</h3>
+                                <p class="template-description">Elegant pink floral border</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-green);" data-url="https://www.canva.com/design/DAGdx2Fv7xQ/jeEGizTYmufcQRF2JgeVIA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Cream%20Green%20Simple%20Illustrated%20Wedding%20Invitation.png" alt="Illustrated Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Illustrated Design</h3>
+                                <p class="template-description">Simple green and cream</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-red);" data-url="https://www.canva.com/design/DAGdx8p-TL0/qc5Ln22owCyqGsWfMdRCEQ/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Gold%20and%20Red%20Classic%20Traditional%20Floral%20Patterned%20Indian%20Wedding%20Invitation.png" alt="Gold & Red Indian Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Gold & Red</h3>
+                                <p class="template-description">Traditional Indian design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 4 -->
+                <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGeyqKUs-E/P9OGQgSLQPsquE_IlqrT6w/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Pink%20Floral%20Wedding%20Invitation.png" alt="Pink Floral Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Pink Floral</h3>
+                                <p class="template-description">Delicate floral pattern</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 5 -->
+                <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-yellow);" data-url="https://www.canva.com/design/DAGeyjTHIW4/Je3WDCgcqu7S34iDDiJ9Og/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src= "img/wedding png/Black and Gold Modern Elegant Wedding Celebration Invitation .png"alt="Black & Gold Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Black & Gold</h3>
+                                <p class="template-description">Modern elegant celebration</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 6 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-lime);" data-url="https://www.canva.com/design/DAGeygBGXeI/2YPwCaVwq_tY-auh3XnU7A/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Pink%20And%20Green%20Minimalist%20Wedding%20Invitation.png" alt="Minimalist Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Minimalist</h3>
+                                <p class="template-description">Clean pink and green</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 7 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-blue);" data-url="https://www.canva.com/design/DAGeyuux_B0/27tYjXBUAHOHo8Alfm_nJw/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Soft%20Blue%20and%20White%20Floral%20Illustrative%20Wedding%20Invitation.png" alt="Soft Blue Floral Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Soft Blue</h3>
+                                <p class="template-description">Illustrative floral design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 8 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-orange);" data-url="https://www.canva.com/design/DAGeymt1oKQ/P9d7YlP8W8BDp0bcU8-95w/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Brown%20Gradient%20Traditional%20Indian%20Wedding%20Invitation.png" alt="Traditional Brown Indian Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Traditional Brown</h3>
+                                <p class="template-description">Gradient Indian design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 9 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-teal);" data-url="https://www.canva.com/design/DAGeyrBLqC0/wOs8psyWPKK9nmuoFZke-Q/edit">
+                    <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Blue%20and%20Gold%20Wedding%20Invitation.png" alt="Blue & Gold Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Blue & Gold</h3>
+                                <p class="template-description">Elegant color combination</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card 10 -->
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-purple);" data-url="https://www.canva.com/design/DAGeykaJvRU/L8xfepl5YeQmPlQdZRtK8Q/edit">
+                    <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/wedding%20png/Pink%20Floral%20Watercolor%20Indian%20Wedding%20Invitation.png" alt="Watercolor Wedding"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Watercolor</h3>
+                                <p class="template-description">Soft pink watercolor</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Birthday Section -->
+        <section class="template-section birthday-section">
+             <div class="section-header animate-on-scroll">
+                <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a2 2 0 00-2 2c0 .73.4 1.39 1 1.73V7H8v2h3v2H8v2h3v2H8v2h3v1.27c-.6.34-1 1-1 1.73a2 2 0 104 0c0-.73-.4-1.39-1-1.73V17h3v-2h-3v-2h3v-2h-3V9h3V7h-3V5.73c.6-.34 1-1 1-1.73a2 2 0 00-2-2zm-5 14v-2h10v2H7z"/></svg>
+                <h2 class="section-title">Birthday Invitations</h2>
+            </div>
+            <div class="template-grid">
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGk6IX8vBs/JQWbMb4v-4oxXP72Oq98GA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Black%20and%20Pink%20Illustrated%20Birthday%20Invitation.png" alt="Black & Pink Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Black & Pink</h3>
+                                <p class="template-description">Bold and playful design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-white);" data-url="https://www.canva.com/design/DAGk6DwnT6k/gDIjHHhB11faWxtXh1qZOw/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Black%20Illustrated%20Balloons%20Birthday%20Party%20Invitation.png" alt="Balloon Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Balloon Theme</h3>
+                                <p class="template-description">Modern and fun</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-blue);" data-url="https://www.canva.com/design/DAGk6MFS2As/vOk3rSTYL8dWsEpnMQvKPQ/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Blue%20Modern%20Birthday%20Party%20Invitation.png" alt="Blue Modern Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Blue Modern</h3>
+                                <p class="template-description">Vibrant and energetic</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-red);" data-url="https://www.canva.com/design/DAGk6LIsno8/ljnhys9m3la_9T_YaIUGFQ/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Blush%20Pink%20Red%20Vintage%20Ornamental%20Stamped%2030th%20Birthday%20Invitation.png" alt="Vintage Blush Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Vintage Blush</h3>
+                                <p class="template-description">Ornamental and elegant</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-yellow);" data-url="https://www.canva.com/design/DAGk6KIp7u4/2Rts5VwTP6kZRtVuwZ4OwQ/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Cream%20Vintage%20Dinner%20Party%20Invitation.png" alt="Cream Vintage Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Cream Vintage</h3>
+                                <p class="template-description">Classic dinner party</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-green);" data-url="https://www.canva.com/design/DAGk6KNxdjw/AnXQzfKNkoYNHYk9qm7NuQ/edit">
+                    <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Green%20and%20Brown%20Birthday%20Invitation.png" alt="Green & Brown Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Green & Brown</h3>
+                                <p class="template-description">Natural and earthy tones</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-lime);" data-url="https://www.canva.com/design/DAGk6PRNZgE/KOoGzhYob0Qlls9-b45pSg/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Green%20and%20Gold%20Painted%20Birthday%20Invitation.png" alt="Green & Gold Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Green & Gold</h3>
+                                <p class="template-description">Luxurious painted style</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGk6Eyrv18/CBlVXLwovlm0CZBfA3pLZA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Pink%20Beige%20Modern%20Glamour%2016th%20Kids%20Birthday%20Invitation.png" alt="Pink Glamour Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Pink Glamour</h3>
+                                <p class="template-description">Modern sweet sixteen</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-purple);" data-url="https://www.canva.com/design/DAGk6DxF2HI/N6S1eJFPbXpoMQ1Biff2_A/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/Pink%20Gold%20Watercolor%20Birthday%20Party%20Invitation.png" alt="Pink Watercolor Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Pink Watercolor</h3>
+                                <p class="template-description">Soft gold accents</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-white);" data-url="https://www.canva.com/design/DAGk6DAzDkc/rkLiNju_AS0AZRdaS1YTNA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/birthday%20png/White%20with%20Gold%20Elegant%20Birthday%20Party%20Invitation.png" alt="White & Gold Birthday"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">White & Gold</h3>
+                                <p class="template-description">Elegant and classy party</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Engagement Section -->
+        <section class="template-section engagement-section">
+             <div class="section-header animate-on-scroll">
+                <svg class="section-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 2a.5.5 0 01.48.716l-1.12 3.92A5.5 5.5 0 0112 9.5a5.5 5.5 0 013.14-2.864l-1.12-3.92A.5.5 0 0114.5 2h-5zm5.06 8.218A3.5 3.5 0 0012 8.5a3.5 3.5 0 00-2.56 1.218L3 16.894V19a2 2 0 002 2h14a2 2 0 002-2v-2.106L14.56 10.218z"/></svg>
+                <h2 class="section-title">Engagement Invitations</h2>
+            </div>
+            <div class="template-grid">
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-white);" data-url="https://www.canva.com/design/DAGeIWS8EsM/JV7gv_vInRVplHOTMf5DFA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/White%20Minimalist%20Wedding%20Invitation.png" alt="Minimalist White Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Minimalist White</h3>
+                                <p class="template-description">Clean simple design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-orange);" data-url="https://www.canva.com/design/DAGeIeiWW2U/HBiO0LFsCptinnG53v82SA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Brown%20Gray%20Elegant%20Flower%20Wedding%20Invitation%20Instagram%20Story.png" alt="Elegant Flowers Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Elegant Flowers</h3>
+                                <p class="template-description">Brown and gray palette</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                  <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-yellow);" data-url="https://www.canva.com/design/DAGeIVsjquw/LvUPwhX1S9NM9zMBPR8n7Q/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Gold%20and%20Grey%20Floral%20Engagement%20Invitation.png" alt="Gold & Grey Floral Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Gold & Grey</h3>
+                                <p class="template-description">Sophisticated floral design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-purple);" data-url="https://www.canva.com/design/DAGeIXc25cU/-CybZ-xA42khYoj72mBcbw/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Purple%20and%20White%20Simple%20Engagement%20Animated%20Floral%20Invitation.png" alt="Purple Floral Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Purple Floral</h3>
+                                <p class="template-description">Simple animated elements</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGeIcr7drE/nDCgkfRKTB8th9VYClDe6g/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Cream%20Pink%20and%20Purple%20Floral%20Vintage%20Feminine%20Engagement%20Invitation.png" alt="Vintage Feminine Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Vintage Feminine</h3>
+                                <p class="template-description">Cream, pink & purple floral</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-white);" data-url="https://www.canva.com/design/DAGeIV8a4-w/view">
+                     <div class="flip-card">
+                         <div class="flip-card-front">
+                            <img src="img/engagement_png/Beige%20Minimalist%20Elegant%20Engagement%20Party%20Card.png" alt="Beige Minimalist Engagement">
+                         </div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Beige Minimalist Theme</h3>
+                                <p class="template-description">Elegant and simple</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-orange);" data-url="https://www.canva.com/design/DAGe4dZNtYQ/oTRojfPGNyHHppTdzdBA_w/view">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Brown%20Traditional%20Indian%20Wedding%20Invitation.png" alt="Traditional Indian Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Traditional Indian</h3>
+                                <p class="template-description">Rich brown classic design</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-pink);" data-url="https://www.canva.com/design/DAGe4YOq-xo/bxWTXwxtqQ96_WWRrU3XTA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Pink%20Flower%20Minimalist%20Engagement%20Invitation.png" alt="Pink Minimalist Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Pink Minimalist</h3>
+                                <p class="template-description">Simple floral touch</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-red);" data-url="https://www.canva.com/design/DAGe4d8qTHg/TYAoSPtUvbVspoZx4Ak7CQ/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/Green%20Red%20Floral%20Decorative%20Engagement%20Invitation.png" alt="Decorative Floral Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Decorative Floral</h3>
+                                <p class="template-description">Green and red accents</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="flip-card-container animate-on-scroll" style="--neon-color: var(--neon-green);" data-url="https://www.canva.com/design/DAGe4Q3qZDw/kwkFGN5iIl9OCB9hdBAnFA/edit">
+                     <div class="flip-card">
+                        <div class="flip-card-front"><img src="img/engagement_png/White%20and%20Green%20Simple%20Engagement%20Invitation.png" alt="Simple Greenery Engagement"></div>
+                        <div class="flip-card-back">
+                            <div class="template-info">
+                                <h3 class="template-title">Simple Greenery</h3>
+                                <p class="template-description">Clean white and green</p>
+                                <button class="edit-button">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+        <!-- End Sections -->
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <div class="footer-logo">Luxury<span>Invites</span></div>
+            <p>© 2024 Official Luxury Invitation Templates. All rights reserved.</p>
+            <p>Premium designs crafted for your unforgettable moments.</p>
+        </footer>
+
+    </div> <!-- End Container -->
+
+    <!-- QR Code Modal Structure -->
+    <div class="qr-modal-overlay" id="qr-modal-overlay">
+        <div class="qr-modal" id="qr-modal">
+            <button class="close-modal-button" id="close-modal-button">×</button>
+            <h3>Template Link QR Code</h3>
+            <p>Scan this code or click 'Edit Template' on the card to access.</p>
+            <div id="qr-code-container"></div>
+            <!-- Visit Template Button Removed -->
+        </div>
+    </div>
+
+    <!-- Include JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script>
+        /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+        particlesJS('particles-js', { /* PARTICLES CONFIG */
+          "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+            "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.05, "sync": false } },
+            "size": { "value": 2.5, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+            "line_linked": { "enable": true, "distance": 120, "color": "#444444", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true },
+            "modes": { "repulse": { "distance": 200 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+          },
+          "retina_detect": true
+        });
+
+
+        // Card Click for Modal/Button (Flip handled by CSS Hover)
+        document.addEventListener('DOMContentLoaded', () => {
+            const cardContainers = document.querySelectorAll('.flip-card-container');
+            const modalOverlay = document.getElementById('qr-modal-overlay');
+            const qrCodeContainer = document.getElementById('qr-code-container');
+            const closeModalButton = document.getElementById('close-modal-button');
+            // Removed visitLinkButton variable
+            let qrCodeInstance = null;
+
+            // --- Handle Card Clicks ---
+            cardContainers.forEach(container => {
+                const editButton = container.querySelector('.edit-button');
+                const flipCardBack = container.querySelector('.flip-card-back'); // Reference to back face
+
+                container.addEventListener('click', (event) => {
+                    const url = container.dataset.url;
+                    if (!url) {
+                        console.error("No data-url found on this card container.");
+                        return;
+                    }
+
+                    // 1. Check if the Edit Button was clicked
+                    if (editButton && (event.target === editButton || editButton.contains(event.target))) {
+                        // EDIT BUTTON CLICKED - Open link, prevent modal
+                        event.stopPropagation();
+                        console.log("Edit button clicked, opening URL:", url);
+                        window.open(url, '_blank');
+
+                    // 2. Check if the click happened *on the back face* (but wasn't the edit button)
+                    } else if (flipCardBack && flipCardBack.contains(event.target)) {
+                         // BACK FACE CLICKED - Show QR Modal
+                         console.log("Back face clicked, showing QR modal.");
+
+                         // --- Show QR Modal ---
+                         qrCodeContainer.innerHTML = ''; // Clear previous QR
+                         try {
+                              qrCodeInstance = new QRCode(qrCodeContainer, {
+                                 text: url, width: 150, height: 150,
+                                 colorDark : "#000000", colorLight : "#ffffff",
+                                 correctLevel : QRCode.CorrectLevel.H
+                             });
+                              const qrImg = qrCodeContainer.querySelector('img');
+                              if(qrImg) qrImg.style.display = 'block';
+                         } catch(e) {
+                             console.error("QR Code generation failed:", e);
+                             qrCodeContainer.innerHTML = '<p style="color: red;">Could not generate QR code.</p>';
+                         }
+                         modalOverlay.classList.add('active'); // Show the modal
+
+                    // 3. Click was somewhere else
+                    } else {
+                         console.log("Front face or container space clicked - no action needed.");
+                    }
+                });
+            });
+
+            // REMOVED Visit Button Listener
+
+            // --- Close Modal Logic ---
+            const closeModal = () => {
+                modalOverlay.classList.remove('active');
+                // REMOVED clearing of data-currentUrl
+                console.log("Modal closed.");
+            };
+
+            closeModalButton.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (event) => {
+                if (event.target === modalOverlay) closeModal(); // Click on overlay background
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal();
+            });
+
+            // --- Intersection Observer for Scroll Animations ---
+             const observerOptions = {
+              root: null, rootMargin: '0px', threshold: 0.1
+             };
+             const observerCallback = (entries, observer) => {
+               entries.forEach(entry => {
+                 if (entry.isIntersecting) {
+                   entry.target.classList.add('is-visible');
+                   if (entry.target.classList.contains('flip-card-container')) {
+                       const siblings = Array.from(entry.target.parentNode.children);
+                       const index = siblings.indexOf(entry.target);
+                       entry.target.style.setProperty('--card-index', index);
+                   }
+                   observer.unobserve(entry.target);
+                 }
+               });
+             };
+             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+             const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+             elementsToAnimate.forEach(el => scrollObserver.observe(el));
+
+        });
+    </script>
+
+</body>
+</html>

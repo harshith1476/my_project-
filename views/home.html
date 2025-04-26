@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite-Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Sparkling Animated Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f5f7fa;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnimation 3s infinite;
+        }
+
+        @keyframes sparkleAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Floating Hearts Animation */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.3);
+            font-size: 20px;
+            animation: floatUp 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Image Hover Effects */
+        .grid-item img, .new-support-item img {
+            transition: all 0.5s ease;
+            filter: brightness(0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item:hover img, .new-support-item:hover img {
+            transform: scale(1.03);
+            filter: brightness(1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .grid-item img::after, .new-support-item img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.8) 0%, transparent 20%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .grid-item:hover img::after, .new-support-item:hover img::after {
+            opacity: 1;
+        }
+
+        /* Floating Animation for Hero Section */
+        .hero-content {
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glowing Button Effect */
+        .help-form button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .help-form button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: buttonGlow 3s linear infinite;
+        }
+
+        @keyframes buttonGlow {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Official Footer */
+        footer {
+            background: linear-gradient(135deg, #673ab7 0%, #9575cd 100%);
+            color: white;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9800, #ff5722);
+        }
+
+        .footer-copyright {
+            padding: 10px;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .footer-copyright a {
+            color: #ff9800;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .footer-copyright a:hover {
+            color: white;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        .footer-copyright a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: white;
+            transition: width 0.3s;
+        }
+
+        .footer-copyright a:hover::after {
+            width: 100%;
+        }
+
+        /* Fixed Neon "Get In" Button */
+
+        .neon-btn {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            font-size: 16px;
+            overflow: hidden;
+            transition: 0.2s;
+            border-radius: 8px;
+            background: darkblue;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .neon-btn:hover {
+            color: white;
+            background: blue;
+            box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+        }
+
+        .neon-btn span {
+            position: absolute;
+            display: block;
+        }
+
+        .neon-btn span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2196f3);
+        }
+
+        .neon-btn:hover span:nth-child(1) {
+            left: 100%;
+            transition: 1s;
+        }
+
+        .neon-btn span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #2196f3);
+        }
+
+        .neon-btn:hover span:nth-child(3) {
+            right: 100%;
+            transition: 1s;
+            transition-delay: 0.5s;
+        }
+
+        .neon-btn span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #2196f3);
+        }
+
+        .neon-btn:hover span:nth-child(2) {
+            top: 100%;
+            transition: 1s;
+            transition-delay: 0.25s;
+        }
+
+        .neon-btn span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #2196f3);
+        }
+
+        .neon-btn:hover span:nth-child(4) {
+            bottom: 100%;
+            transition: 1s;
+            transition-delay: 0.75s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-content {
+                animation: none;
+            }
+            .sparkle, .heart {
+                display: none;
+            }
+            .neon-btn-container {
+                right: 10px;
+                top: 10px;
+            }
+            .neon-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="styles1.css"> 
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="sparkles" id="sparkles"></div>
+    <div class="floating-hearts" id="hearts"></div>
+  
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Invitation logo">
+            <h1>Invite-Hub</h1>
+        </div>
+
+        <!-- Fixed Neon "Get In" Button -->
+        <div class="neon-btn-container">
+            <button class="neon-btn" onclick="window.location.href='/templates'">
+                GET IN
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="text">
+                <h3>"Get Ready to impress your guests?</h3>
+                <p>Create your perfect invitation card today! 🎉 #InviteHub"</p>
+                <h3>🎉 You're Invited! 🎉</h3>
+                <p>We are thrilled to invite you to celebrate a special moment in our lives! Whether it's the joy of a birthday, the promise of an engagement, or the beginning of a lifelong journey at our wedding, your presence will make the occasion even more memorable. Join us for an unforgettable celebration filled with love, laughter, and happiness.</p>
+            </div>
+            <form class="help-form">
+                <h4>Online Visiting</h4>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                <button type="submit">Visit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Coverage Section -->
+    <section class="grid-section" style="background-color: rgba(233, 247, 250, 0.8);">
+        <h2>Welcome to Invite Hub – Your One-Stop Destination for Invitations! 🎉</h2>
+        <p>At Invite Hub, we make celebrating life's special moments effortless with beautifully crafted invitation cards for every occasion. Whether you're planning a birthday party, wedding, baby shower, graduation, or corporate event, we offer elegant and customizable invitations to match your style. From formal to fun, digital to print, we ensure your invites leave a lasting impression. Let Invite Hub be your go-to place for all things invitations—because every great event starts with the perfect invite!</p>
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="img/sad.png" alt="Birthday-Invitation">
+                <h5>Birthday-Invitation</h5>
+                <p>"The great thing about getting older is that you don't lose all the other ages you've been."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/over.png" alt="Birthday-Invitation-1">
+                <h5>Birthday-Invitation</h5>
+                <p>"The best birthdays of all are those that haven't arrived yet."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/stress.png" alt="Engagement">
+                <h5>Engagement</h5>
+                <p>"The best thing to hold onto in life is each other."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/dep.png" alt="Engagement">
+                <h5>Engagement-01</h5>
+                <p>"A successful marriage requires falling in love many times, always with the same person."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/anx.png" alt="Wedding-1">
+                <h5>Wedding-Invitation</h5>
+                <p>"Together with their families, [Bride] and [Groom] invite you to share in their joy as they exchange vows and begin their new life together."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/rel.png" alt="Wedding-2">
+                <h5>Wedding-Invitation</h5>
+                <p>"The pleasure of your company is requested as we celebrate the marriage of [Bride] and [Groom]."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/trauma.png" alt="Wedding-3">
+                <h5>Wedding-Invitation</h5>
+                <p>"Join us as we tie the knot and start our forever."</p>
+            </div>
+            <div class="grid-item">
+                <img src="img/alone.png" alt="Wedding-4">
+                <h5>Wedding-Invitation</h5>
+                <p>"Today, I marry my best friend, the one I laugh with, live for, and love."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Support Section -->
+    <section class="new-support-section" style="background-color: rgba(252, 228, 236, 0.8);">
+        <h2>Get the Support From Us</h2>
+        <div class="new-support-container">
+            <div class="new-support-item">
+                <img src="img/n1.jpg" alt="Build Connections with Like-Minded Souls">
+                <h3>Birthday Gathering Celebration</h3>
+                <p>A birthday gathering is a special occasion filled with love, laughter, and cherished moments.</p>
+            </div>
+            <div class="new-support-item">
+                <img src="img/n2.jpg" alt="Guidance and Support for Young Minds">
+                <h3>Wedding Celebration</h3>
+                <p>A Wedding is a celebration of love, unity, and the beginning of a new chapter in life.</p>
+            </div>
+            <div class="new-support-item">
+                <img src="img/n3.jpg" alt="Empower Your Mind and Spirit">
+                <h3>Engagement Celebration</h3>
+                <p>An engagement marks the beginning of a beautiful journey filled with love, commitment, and shared dreams.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support-section" style="background-color: rgba(209, 196, 233, 0.8); padding: 20px 20px;">
+        <h2>Our Page Visited</h2>
+        <p>Our Services Aim To Provide You With The Emotional Support You Need. To Provide Good Templates For You!</p>
+    </section>
+
+    <!-- Official Footer -->
+    <footer>
+        <div class="footer-copyright">
+            &copy; 2024 INVITE-HUB. All Rights Reserved. | <a href="#">HOME</a> | <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Create sparkling background
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const sparkleCount = Math.floor(width * height / 10000);
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                
+                // Random position
+                const left = Math.random() * width;
+                const top = Math.random() * height;
+                
+                // Random size
+                const size = Math.random() * 4 + 2;
+                
+                // Random delay
+                const delay = Math.random() * 5;
+                
+                sparkle.style.left = `${left}px`;
+                sparkle.style.top = `${top}px`;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.animationDelay = `${delay}s`;
+                
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                
+                // Random position
+                const left = Math.random() * 100;
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                
+                // Random delay
+                const delay = Math.random() * 15;
+                
+                // Random size
+                const size = Math.random() * 10 + 10;
+                
+                heart.style.left = `${left}vw`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.fontSize = `${size}px`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Image light effect
+        document.addEventListener('DOMContentLoaded', () => {
+            createSparkles();
+            createHearts();
+            
+            const images = document.querySelectorAll('.grid-item img, .new-support-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('mousemove', (e) => {
+                    const rect = img.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    img.style.setProperty('--x', `${x}px`);
+                    img.style.setProperty('--y', `${y}px`);
+                });
+            });
+
+            // Add click event to neon button
+            const neonBtn = document.querySelector('.neon-btn');
+            neonBtn.addEventListener('click', () => {
+                alert('Welcome to Invite-Hub! Let\'s create amazing invitations together!');
+            });
+        });
+    </script>
+    <script src="scripts.js"></script>
+</body>
+</html>

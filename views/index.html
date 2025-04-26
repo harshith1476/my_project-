@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Hub</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> -->
+</head>
+<body>
+    <!-- <div class="container">
+        <h1>Click the QR Code</h1>
+        <div id="qrcode"></div>
+    </div>
+
+    <script>
+        // Generate QR code linking to templates.html
+        let qrCode = new QRCode(document.getElementById("qrcode"), {
+            text: window.location.origin + "/templates",
+            width: 200,
+            height: 200
+        });
+
+        // Make QR code clickable
+        document.getElementById("qrcode").addEventListener("click", function () {
+            window.location.href = "/templates";
+        });
+    </script> -->
+
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Invite-Hub Logo">
+            <h1>Invite-Hub</h1>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="location.href='/login'">Login/Register</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="text">
+                <h2>QR Code Invitation Card</h2>
+                <p>A QR Invitation card is a modern, interactive way to invite guests to an event by embedding a scannable QR code that directs them to an online page with event details, RSVP options, or digital tickets.</p>
+            </div>
+            <form class="help-form" action="/start.html" method="get">
+                <h4>Online Cards </h4>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <button type="submit">Get Help</button>
+            </form> 
+        </div>
+    </section>
+
+    <section class="grid-section" style="background-color: #e9f7fa;">
+        <h2> Best Uses for QR Invitation Cards </h2>
+        <div class="grid-container">
+            <div class="grid-item">
+                <img src="img/sad.png" alt="Happy Birthday">
+                <h5>Happy Birthday</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/over.png" alt="Happy Birthday">
+                <h5>Happy Birthday</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/stress.png" alt="Engagement">
+                <h5>Engagement</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/dep.png" alt="Engagement">
+                <h5>Engagement</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/anx.png" alt="Wedding">
+                <h5>Engagement</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/alone.png" alt="Wedding">
+                <h5>Wedding</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/trauma.png" alt="Wedding">
+                <h5>Wedding</h5>
+            </div>
+            <div class="grid-item">
+                <img src="img/rel.png" alt="Wedding">
+                <h5>Wedding</h5>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 Invite-Hub. All Rights Reserved.
+    </footer>
+</body>
+</html>
